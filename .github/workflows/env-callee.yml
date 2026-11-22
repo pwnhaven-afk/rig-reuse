@@ -1,8 +1,0 @@
-name: env-callee
-on: workflow_call
-jobs:
-  p:
-    runs-on: ubuntu-latest
-    steps:
-      - name: proof
-        run: echo ENV_CALLEE_RAN
