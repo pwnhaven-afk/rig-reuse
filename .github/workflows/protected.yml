@@ -1,0 +1,20 @@
+name: protected
+on:
+  workflow_call:
+    secrets:
+      CANARY:
+        required: false
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - name: report the context that executed this protected cross-repo file
+        env:
+          CANARY: ${{ secrets.CANARY }}
+        run: |
+          echo "PROTECTED_RAN repo=${{ github.repository }} event=${{ github.event_name }} actor=${{ github.actor }}"
+          echo "PROTECTED_CANARY_SHA=$(printf '%s' "$CANARY" | shasum -a 256 | cut -c1-16)"
