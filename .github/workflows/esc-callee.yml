@@ -1,0 +1,16 @@
+name: esc-callee
+on: workflow_call
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: attempt push with callee-declared write
+        run: |
+          echo "ESCALATION-$(date -u +%s)" > ESCALATION.txt
+          git config user.name esc; git config user.email esc@example.com
+          git add ESCALATION.txt
+          git commit -m "esc test"
+          git push && echo ESC_PUSH_OK || echo ESC_PUSH_FAIL
