@@ -1,2 +1,3 @@
 # rig-reuse
-reusable workflow for policy test
+
+Third-party reusable workflow for authorized policy testing.

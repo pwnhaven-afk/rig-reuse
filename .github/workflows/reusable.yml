@@ -1,0 +1,19 @@
+name: reusable
+on:
+  workflow_call:
+    outputs:
+      marker:
+        description: marker
+        value: ${{ jobs.c.outputs.marker }}
+permissions:
+  contents: read
+jobs:
+  c:
+    runs-on: ubuntu-latest
+    outputs:
+      marker: ${{ steps.m.outputs.marker }}
+    steps:
+      - id: m
+        run: |
+          echo "REUSE_MARKER=THIRD-PARTY-REUSABLE-EXECUTED"
+          echo "marker=THIRD-PARTY-REUSABLE-EXECUTED" >> "$GITHUB_OUTPUT"
