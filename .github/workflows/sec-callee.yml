@@ -1,0 +1,16 @@
+name: sec-callee
+on:
+  workflow_call:
+    secrets:
+      CANARY:
+        required: false
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe secret visibility without inherit
+        env:
+          CANARY: ${{ secrets.CANARY }}
+        run: |
+          echo "SEC_PRESENT=${CANARY:+yes}"
+          echo "SEC_SHA=$(printf '%s' "$CANARY" | shasum -a 256 | cut -c1-16)"
